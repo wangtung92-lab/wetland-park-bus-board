@@ -3,12 +3,418 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>濒地公園路站</title>
+  <meta name="apple-mobile-web-app-title" content="濕地公園路站">
+  <title>濕地公園路站 · 實時到站</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #1a2332;
+      color: #e8eef6;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      -webkit-tap-highlight-color: transparent; user-select: none;
+    }
+    body { display: flex; flex-direction: column; padding: 12px 14px; gap: 10px; }
+    .rotate-hint {
+      display: none;
+      background: rgba(100,160,220,0.15);
+      border: 1px solid rgba(100,160,220,0.3);
+      color: #7ec8ff; text-align: center; padding: 8px; border-radius: 10px;
+      font-size: 0.88rem; font-weight: 600; flex-shrink: 0;
+    }
+    .top-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      background: linear-gradient(180deg, #243044 0%, #1e2a3a 100%);
+      border: 1px solid rgba(140,170,210,0.14);
+      border-radius: 14px; padding: 12px 16px; flex-shrink: 0;
+    }
+    .station-block { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .bus-icon {
+      width: 42px; height: 42px; background: #2c3b52; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      border: 1px solid rgba(140,170,210,0.12); flex-shrink: 0;
+    }
+    .live-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(70,140,200,0.22); color: #7ec8ff;
+      font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 5px;
+      letter-spacing: 0.4px; margin-bottom: 3px;
+    }
+    .live-tag::before {
+      content: ""; width: 6px; height: 6px; background: #5dce7a; border-radius: 50%;
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+    .station-name { font-size: 1.2rem; font-weight: 800; color: #f0f5fb; white-space: nowrap; }
+    .station-sub { font-size: 0.75rem; color: #9aafc4; }
+    .clock-block { text-align: center; flex: 1; }
+    .clock-time {
+      font-size: 1.85rem; font-weight: 700; font-variant-numeric: tabular-nums;
+      letter-spacing: 1px; color: #f0f5fb; line-height: 1.05;
+    }
+    .clock-date { font-size: 0.78rem; color: #9aafc4; margin-top: 2px; }
+    .weather-block {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+      background: #243044; border: 1px solid rgba(140,170,210,0.12);
+      border-radius: 12px; padding: 8px 12px; min-width: 95px; flex-shrink: 0;
+    }
+    .weather-temp { font-size: 1.3rem; font-weight: 700; color: #f0f5fb; display: flex; align-items: center; gap: 5px; }
+    .weather-hum { font-size: 0.75rem; color: #7ec8ff; }
+    .cards {
+      display: grid; grid-template-columns: 1fr; gap: 10px;
+      flex: 1; min-height: 0; overflow-y: auto;
+    }
+    .card {
+      background: linear-gradient(165deg, #243044 0%, #1e2a3a 100%);
+      border: 1px solid rgba(140,170,210,0.13);
+      border-radius: 14px; display: flex; flex-direction: column;
+      overflow: hidden; position: relative; min-height: 0;
+    }
+    .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .card.ctb::before { background: linear-gradient(90deg, #f0c000, #e8b800); }
+    .card.kmb::before { background: linear-gradient(90deg, #e84a5f, #d63a4e); }
+    .card-head {
+      padding: 12px 14px 10px; display: flex; flex-direction: column; gap: 6px;
+      border-bottom: 1px solid rgba(140,170,210,0.1); flex-shrink: 0;
+    }
+    .op-row { display: flex; justify-content: space-between; align-items: center; }
+    .op-badge { font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 6px; }
+    .op-badge.ctb { background: #f0c000; color: #1a1a1a; }
+    .op-badge.kmb { background: #e84a5f; color: #fff; }
+    .dir-text { font-size: 0.75rem; color: #9aafc4; }
+    .route-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .route-num { font-size: 2.2rem; font-weight: 900; line-height: 1; letter-spacing: -1px; }
+    .card.ctb .route-num { color: #f0c000; }
+    .card.kmb .route-num { color: #ff6b7a; }
+    .dest-block { text-align: right; }
+    .dest-label { font-size: 0.68rem; color: #7a90a8; }
+    .dest-name { font-size: 1.1rem; font-weight: 700; color: #f0f5fb; }
+    .eta-list {
+      flex: 1; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; overflow: hidden;
+    }
+    .eta-item {
+      display: flex; align-items: center; gap: 11px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(140,170,210,0.08);
+      border-radius: 11px; padding: 10px 12px;
+    }
+    .eta-item.first {
+      background: rgba(80,150,220,0.14);
+      border-color: rgba(80,150,220,0.35);
+    }
+    .eta-seq {
+      width: 26px; height: 26px; border-radius: 8px; background: #2c3b52; color: #9aafc4;
+      font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .eta-item.first .eta-seq { background: #3d8fd1; color: #fff; }
+    .eta-info { flex: 1; min-width: 0; }
+    .eta-time { font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #f0f5fb; }
+    .eta-remark { font-size: 0.7rem; color: #7a90a8; margin-top: 2px; }
+    .eta-right { text-align: right; flex-shrink: 0; }
+    .eta-mins { font-size: 1.25rem; font-weight: 800; color: #5dce7a; white-space: nowrap; }
+    .eta-item.first .eta-mins { color: #7ec8ff; font-size: 1.35rem; }
+    .eta-mins.soon { color: #7ec8ff; }
+    .eta-dest-time { font-size: 0.74rem; color: #9aafc4; margin-top: 2px; }
+    .eta-item.first .eta-dest-time { color: #9ad0ff; }
+    .empty-state {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; color: #7a90a8; font-size: 0.95rem; padding: 18px; text-align: center; line-height: 1.4;
+    }
+    .empty-state .icon { font-size: 1.7rem; opacity: 0.5; }
+    .card-foot {
+      padding: 8px 14px; border-top: 1px solid rgba(140,170,210,0.1);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; color: #7a90a8; flex-shrink: 0;
+    }
+    .card-foot .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #5dce7a;
+      display: inline-block; margin-right: 4px;
+    }
+    .bottom-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: #1e2a3a; border: 1px solid rgba(140,170,210,0.12);
+      border-radius: 12px; padding: 9px 14px; font-size: 0.8rem; color: #9aafc4; flex-shrink: 0;
+    }
+    .status-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .status-dot {
+      width: 8px; height: 8px; background: #5dce7a; border-radius: 50%;
+      animation: pulse 1.6s infinite; flex-shrink: 0;
+    }
+    .status-dot.off { background: #7a90a8; animation: none; }
+    .btn-group { display: flex; gap: 8px; flex-shrink: 0; }
+    .mode-btn, .refresh-btn {
+      border: 1px solid rgba(140,170,210,0.15); color: #c5d4e5;
+      font-size: 0.8rem; padding: 7px 13px; border-radius: 9px; cursor: pointer;
+      white-space: nowrap; background: #2c3b52;
+    }
+    .mode-btn.active-home {
+      background: rgba(93,206,122,0.18);
+      border-color: rgba(93,206,122,0.45);
+      color: #5dce7a; font-weight: 700;
+    }
+    .mode-btn.active-away {
+      background: rgba(122,144,168,0.18);
+      border-color: rgba(122,144,168,0.4);
+      color: #9aafc4;
+    }
+    .refresh-btn:active, .mode-btn:active { background: #354860; }
+    @media (orientation: landscape) {
+      .rotate-hint { display: none !important; }
+      body { padding: 10px 14px; gap: 10px; }
+      .cards { grid-template-columns: repeat(3, 1fr); overflow: hidden; }
+      .top-bar { padding: 10px 16px; }
+      .station-name { font-size: 1.3rem; }
+      .clock-time { font-size: 2.05rem; }
+      .route-num { font-size: 2.35rem; }
+      .dest-name { font-size: 1.1rem; }
+      .eta-time { font-size: 1.15rem; }
+      .eta-mins { font-size: 1.25rem; }
+      .eta-item.first .eta-mins { font-size: 1.35rem; }
+    }
+    @media (orientation: landscape) and (min-width: 900px) {
+      body { padding: 14px 20px; gap: 12px; }
+      .station-name { font-size: 1.55rem; }
+      .clock-time { font-size: 2.55rem; }
+      .route-num { font-size: 2.85rem; }
+      .dest-name { font-size: 1.25rem; }
+      .eta-time { font-size: 1.3rem; }
+      .eta-mins { font-size: 1.45rem; }
+      .eta-item.first .eta-mins { font-size: 1.6rem; }
+      .weather-temp { font-size: 1.5rem; }
+    }
+    @media (orientation: portrait) { .rotate-hint { display: block; } }
+  </style>
 </head>
 <body>
-<p>Loading board... If you see this, open the full file.</p>
-<script>location.replace('https://litter.catbox.moe/8on6tq.html')</script>
+  <div class="rotate-hint">↻ 建議橫放使用，顯示效果更佳</div>
+  <header class="top-bar">
+    <div class="station-block">
+      <div class="bus-icon">🚌</div>
+      <div class="station-text">
+        <div class="live-tag">LIVE STATION</div>
+        <div class="station-name">濕地公園路站</div>
+        <div class="station-sub">天水圍 · 濕地公園路</div>
+      </div>
+    </div>
+    <div class="clock-block">
+      <div class="clock-time" id="clock">00:00:00</div>
+      <div class="clock-date" id="date">—</div>
+    </div>
+    <div class="weather-block">
+      <div class="weather-temp"><span id="weather-icon">🌤</span><span id="temp">--°C</span></div>
+      <div class="weather-hum">濕度 <span id="humidity">--%</span></div>
+    </div>
+  </header>
+  <main class="cards">
+    <section class="card ctb">
+      <div class="card-head">
+        <div class="op-row">
+          <span class="op-badge ctb">城巴 CTB</span>
+          <span class="dir-text">往 香港島</span>
+        </div>
+        <div class="route-row">
+          <span class="route-num">967</span>
+          <div class="dest-block">
+            <div class="dest-label">目的地</div>
+            <div class="dest-name">金鐘 (西)</div>
+          </div>
+        </div>
+      </div>
+      <div class="eta-list" id="eta-967"><div class="empty-state"><div class="icon">🚌</div>載入中...</div></div>
+      <div class="card-foot">
+        <span><span class="dot"></span>預計車程約 52 分</span>
+        <span id="ts-967">—</span>
+      </div>
+    </section>
+    <section class="card kmb">
+      <div class="card-head">
+        <div class="op-row">
+          <span class="op-badge kmb">九巴 KMB</span>
+          <span class="dir-text">往 元朗區</span>
+        </div>
+        <div class="route-row">
+          <span class="route-num">69</span>
+          <div class="dest-block">
+            <div class="dest-label">目的地</div>
+            <div class="dest-name">元朗 (德業街)</div>
+          </div>
+        </div>
+      </div>
+      <div class="eta-list" id="eta-69"><div class="empty-state"><div class="icon">🚌</div>載入中...</div></div>
+      <div class="card-foot">
+        <span><span class="dot"></span>九巴精確站點</span>
+        <span id="ts-69">—</span>
+      </div>
+    </section>
+    <section class="card kmb">
+      <div class="card-head">
+        <div class="op-row">
+          <span class="op-badge kmb">九巴 KMB</span>
+          <span class="dir-text">往 北區</span>
+        </div>
+        <div class="route-row">
+          <span class="route-num">276B</span>
+          <div class="dest-block">
+            <div class="dest-label">目的地</div>
+            <div class="dest-name">上水 (彩園)</div>
+          </div>
+        </div>
+      </div>
+      <div class="eta-list" id="eta-276b"><div class="empty-state"><div class="icon">🚌</div>載入中...</div></div>
+      <div class="card-foot">
+        <span><span class="dot"></span>預計車程約 40 分</span>
+        <span id="ts-276b">—</span>
+      </div>
+    </section>
+  </main>
+  <footer class="bottom-bar">
+    <div class="status-left">
+      <span class="status-dot" id="status-dot"></span>
+      <span id="status-text">實時連線中</span>
+      <span style="opacity:0.45">|</span>
+      <span id="wake-status">—</span>
+    </div>
+    <div class="btn-group">
+      <button class="mode-btn" id="mode-btn" onclick="toggleHomeMode()">🏠 喺屋企</button>
+      <button class="refresh-btn" onclick="fetchData()">↻ 更新</button>
+    </div>
+  </footer>
+  <script>
+    const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    const JOURNEY = { '967': 52, '276B': 40 };
+    let wakeLock = null;
+    let isHome = localStorage.getItem('busBoardHome') !== '0';
+    function updateModeUI() {
+      const btn = document.getElementById('mode-btn');
+      const status = document.getElementById('wake-status');
+      const dot = document.getElementById('status-dot');
+      if (isHome) {
+        btn.textContent = '🏠 喺屋企';
+        btn.className = 'mode-btn active-home';
+        status.textContent = '螢幕保持開啟';
+        dot.classList.remove('off');
+        requestWakeLock();
+      } else {
+        btn.textContent = '🚶 出門';
+        btn.className = 'mode-btn active-away';
+        status.textContent = '螢幕可正常熄滅';
+        dot.classList.add('off');
+        releaseWakeLock();
+      }
+    }
+    function toggleHomeMode() {
+      isHome = !isHome;
+      localStorage.setItem('busBoardHome', isHome ? '1' : '0');
+      updateModeUI();
+    }
+    async function requestWakeLock() {
+      if (!isHome) return;
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          wakeLock.addEventListener('release', () => {
+            if (isHome) document.getElementById('wake-status').textContent = '螢幕已釋放';
+          });
+        }
+      } catch (e) {}
+    }
+    function releaseWakeLock() {
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+    }
+    updateModeUI();
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && isHome) requestWakeLock();
+    });
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toTimeString().substring(0, 8);
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      document.getElementById('date').textContent = `${y}年${m}月${d}日 (${weekdays[now.getDay()]})`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    async function fetchWeather() {
+      try {
+        const res = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc');
+        const data = await res.json();
+        if (data.temperature?.data) {
+          const t = data.temperature.data.find(x => x.place === '濕地公園' || x.place === '元朗') || data.temperature.data[0];
+          document.getElementById('temp').textContent = `${t.value}°C`;
+        }
+        if (data.humidity?.data) document.getElementById('humidity').textContent = `${data.humidity.data[0].value}%`;
+        if (data.icon?.[0]) {
+          const icon = data.icon[0];
+          document.getElementById('weather-icon').textContent =
+            icon <= 2 ? '☀️' : icon <= 6 ? '⛅' : icon <= 10 ? '☁️' : icon <= 14 ? '🌧' : '🌤';
+        }
+      } catch (e) {}
+    }
+    fetchWeather();
+    setInterval(fetchWeather, 300000);
+    function formatEta(etaStr, journeyMins = 0) {
+      if (!etaStr) return null;
+      const eta = new Date(etaStr);
+      const diff = Math.floor((eta - new Date()) / 60000);
+      if (diff < -1) return null;
+      const time = eta.toTimeString().substring(0, 5);
+      let destTime = null;
+      if (journeyMins > 0) {
+        destTime = new Date(eta.getTime() + journeyMins * 60000).toTimeString().substring(0, 5);
+      }
+      if (diff <= 0) return { time, mins: '即將到站', soon: true, destTime };
+      return { time, mins: `${diff} 分鐘`, soon: false, destTime };
+    }
+    function renderList(containerId, items, tsId, options = {}) {
+      const el = document.getElementById(containerId);
+      const tsEl = document.getElementById(tsId);
+      if (tsEl) tsEl.textContent = new Date().toTimeString().substring(0, 8);
+      if (!items || items.length === 0) {
+        el.innerHTML = `<div class="empty-state"><div class="icon">🚌</div>暫無即將到站班次<br><span style="font-size:0.85rem;opacity:0.7">末班車可能已過</span></div>`;
+        return;
+      }
+      let html = '';
+      let count = 0;
+      for (const item of items) {
+        const f = formatEta(item.eta, options.journey || 0);
+        if (!f || count >= 3) continue;
+        const isFirst = count === 0;
+        const remark = item.rmk_tc || (item.co === 'CTB' ? '城巴實時班次' : '九巴實時班次');
+        const destHtml = f.destTime ? `<div class="eta-dest-time">預計${options.destLabel} ${f.destTime}</div>` : '';
+        html += `<div class="eta-item ${isFirst ? 'first' : ''}"><div class="eta-seq">${count + 1}</div><div class="eta-info"><div class="eta-time">${f.time}</div><div class="eta-remark">${remark}</div></div><div class="eta-right"><div class="eta-mins ${f.soon ? 'soon' : ''}">${f.mins}</div>${destHtml}</div></div>`;
+        count++;
+      }
+      el.innerHTML = html || `<div class="empty-state"><div class="icon">🚌</div>暫無即將到站班次</div>`;
+    }
+    async function fetchData() {
+      try {
+        const res = await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/002622/967');
+        const json = await res.json();
+        const list = (json.data || []).filter(i => i.dir === 'O' || (i.dest_tc && i.dest_tc.includes('金鐘')));
+        renderList('eta-967', list, 'ts-967', { journey: JOURNEY['967'], destLabel: '大會堂' });
+      } catch (e) {
+        document.getElementById('eta-967').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>暫時無法取得資料</div>`;
+      }
+      try {
+        const res = await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/4C86E1F44AE9C25B');
+        const json = await res.json();
+        const list = json.data || [];
+        renderList('eta-69', list.filter(i => i.route === '69' && i.dir === 'O'), 'ts-69');
+        renderList('eta-276b', list.filter(i => i.route === '276B' && i.dir === 'O'), 'ts-276b', { journey: JOURNEY['276B'], destLabel: '上水' });
+      } catch (e) {
+        document.getElementById('eta-69').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>暫時無法取得資料</div>`;
+        document.getElementById('eta-276b').innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>暫時無法取得資料</div>`;
+      }
+    }
+    fetchData();
+    setInterval(fetchData, 15000);
+  </script>
 </body>
 </html>
