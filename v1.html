@@ -72,8 +72,8 @@
     </section>
     <section class="card ctb">
       <div class="head">
-        <div class="route-left"><span class="badge ctb">城巴</span><span class="rnum">118</span></div>
-        <div class="fromto">山翠苑<br>→ 海底隧道</div>
+        <div class="route-left"><span class="badge ctb">聯營</span><span class="rnum">118</span></div>
+        <div class="fromto">山翠苑<br>→ 海底隧道 / 長沙灣</div>
       </div>
       <div class="etas" id="r118"><div class="empty">載入中...</div></div>
     </section>
@@ -86,7 +86,7 @@
     </section>
   </main>
   <footer class="bottom">
-    <span id="status">更新中...</span>
+    <span id="status">更新中... · v1.2</span>
     <button class="btn" onclick="fetchAll()">↻ 更新</button>
   </footer>
   <script>
@@ -162,18 +162,22 @@
         render('r780',(j.data||[]).filter(i=>i.dir==='I'||(i.dest_tc&&i.dest_tc.includes('柴灣'))));
       }catch(e){document.getElementById('r780').innerHTML='<div class="empty">無法取得</div>'}
       try{
-        // 118 日間城巴、夜間九巴；優先用有 ETA 嘅資料
+        const results=await Promise.allSettled([
+          fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/001231/118').then(r=>r.json()),
+          fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/0DCC18C3A018C1DA').then(r=>r.json())
+        ]);
         let list=[];
-        try{
-          const r1=await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/001231/118');
-          const j1=await r1.json();
-          list=(j1.data||[]).filter(i=>i.eta);
-        }catch(e){}
-        if(!list.length){
-          const r2=await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/0DCC18C3A018C1DA');
-          const j2=await r2.json();
-          list=(j2.data||[]).filter(i=>i.route==='118'&&i.eta);
+        if(results[0].status==='fulfilled'){
+          list=list.concat((results[0].value.data||[]).filter(i=>i.route==='118'&&i.eta));
         }
+        if(results[1].status==='fulfilled'){
+          list=list.concat((results[1].value.data||[]).filter(i=>i.route==='118'&&i.eta));
+        }
+        const seen=new Set();
+        list=list.filter(i=>{
+          if(seen.has(i.eta)) return false;
+          seen.add(i.eta); return true;
+        }).sort((a,b)=>new Date(a.eta)-new Date(b.eta));
         render('r118',list);
       }catch(e){document.getElementById('r118').innerHTML='<div class="empty">無法取得</div>'}
       try{
@@ -182,7 +186,7 @@
         const up=(j.data&&j.data['TML-HUH']&&j.data['TML-HUH'].UP)||[];
         renderMtr('rmtr',up);
       }catch(e){document.getElementById('rmtr').innerHTML='<div class="empty">無法取得</div>'}
-      document.getElementById('status').textContent='已更新 '+new Date().toTimeString().slice(0,8);
+      document.getElementById('status').textContent='已更新 '+new Date().toTimeString().slice(0,8)+' · v1.2';
     }
     fetchAll();setInterval(fetchAll,15000);
   </script>
