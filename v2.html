@@ -12,92 +12,107 @@
     html,body{width:100%;height:100%;background:#121820;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Noto Sans TC",sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;overflow:hidden}
     body{display:flex;flex-direction:column;padding:8px 10px 10px;gap:6px;height:100%}
     .top{background:#1c2533;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .title{font-size:1.2rem;font-weight:900;letter-spacing:0.3px}
-    .sub{font-size:.65rem;color:#8fa3b8;margin-top:2px}
+    .title{font-size:1.15rem;font-weight:900;letter-spacing:0.3px}
+    .sub{font-size:.62rem;color:#8fa3b8;margin-top:2px}
     .right{text-align:right}
-    .clock{font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
-    .meta{font-size:.7rem;color:#7ec8ff;margin-top:2px}
-    .cards{display:flex;flex-direction:column;gap:5px;flex:1;min-height:0;overflow:hidden}
+    .clock{font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+    .meta{font-size:.68rem;color:#7ec8ff;margin-top:2px}
+    .body{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0}
+    .section{display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
+    .sec-label{font-size:.7rem;font-weight:800;letter-spacing:1px;padding:2px 4px 0;color:#9ad0ff;display:flex;align-items:center;gap:6px;flex-shrink:0}
+    .sec-label.off{color:#f0b48a}
+    .sec-label::after{content:"";flex:1;height:1px;background:rgba(140,170,210,0.15)}
+    .cards{display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
     .card{background:#1c2533;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:3px solid #4a90d9}
     .card.kmb{border-left-color:#e84a5f}
     .card.mtr{border-left-color:#6b4fbb}
-    .head{padding:5px 9px 4px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+    .head{padding:5px 9px 3px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .route-left{display:flex;align-items:center;gap:5px}
-    .badge{font-size:.55rem;font-weight:800;padding:2px 5px;border-radius:4px}
+    .badge{font-size:.52rem;font-weight:800;padding:2px 5px;border-radius:4px}
     .badge.kmb{background:#e84a5f;color:#fff}
     .badge.mtr{background:#6b4fbb;color:#fff}
-    .rnum{font-size:1.05rem;font-weight:900;line-height:1}
+    .rnum{font-size:1rem;font-weight:900;line-height:1}
     .card.kmb .rnum{color:#ff6b7a}
     .card.mtr .rnum{color:#b39ddb}
-    .fromto{font-size:.68rem;color:#c5d4e5;text-align:right;line-height:1.2}
-    .etas{padding:0 7px 6px;display:flex;flex-direction:column;gap:3px;flex:1;min-height:0}
+    .fromto{font-size:.66rem;color:#c5d4e5;text-align:right;line-height:1.2}
+    .etas{padding:0 7px 5px;display:flex;flex-direction:column;gap:3px;flex:1;min-height:0;justify-content:center}
     .eta{display:flex;align-items:center;gap:6px;background:#151c28;border-radius:7px;padding:5px 8px}
     .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.22)}
-    .seq{width:16px;height:16px;border-radius:4px;background:#2a3548;color:#8fa3b8;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .seq{width:15px;height:15px;border-radius:4px;background:#2a3548;color:#8fa3b8;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .eta.first .seq{background:#3d8fd1;color:#fff}
-    .time{font-size:.85rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.6em}
-    .mins{font-size:.82rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
+    .time{font-size:.82rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.5em}
+    .mins{font-size:.8rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
     .eta.first .mins{color:#7ec8ff}
-    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.75rem;padding:4px}
-    .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:10px;padding:6px 11px;font-size:.68rem;color:#8fa3b8;flex-shrink:0}
-    .btn{border:none;color:#c5d4e5;font-size:.7rem;font-weight:600;padding:4px 11px;border-radius:7px;background:#2a3548}
+    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.72rem;padding:3px}
+    .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:10px;padding:6px 11px;font-size:.66rem;color:#8fa3b8;flex-shrink:0}
+    .btn{border:none;color:#c5d4e5;font-size:.68rem;font-weight:600;padding:4px 11px;border-radius:7px;background:#2a3548}
   </style>
 </head>
 <body>
   <header class="top">
     <div>
       <div class="title">天水圍 ⇄ 上水</div>
-      <div class="sub">276A · 276B · 東鐵</div>
+      <div class="sub">返工上行 · 放工下行</div>
     </div>
     <div class="right">
       <div class="clock" id="clock">00:00:00</div>
       <div class="meta"><span id="date">—</span> · <span id="weather-icon">🌤</span> <span id="temp">--°C</span></div>
     </div>
   </header>
-  <main class="cards">
-    <section class="card kmb">
-      <div class="head">
-        <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
-        <div class="fromto">濕地公園 → 上水</div>
+  <div class="body">
+    <div class="section">
+      <div class="sec-label">返工 · 去上水</div>
+      <div class="cards">
+        <section class="card kmb">
+          <div class="head">
+            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
+            <div class="fromto">濕地公園 → 上水</div>
+          </div>
+          <div class="etas" id="b276b_o"><div class="empty">…</div></div>
+        </section>
+        <section class="card kmb">
+          <div class="head">
+            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
+            <div class="fromto">天恆 → 上水</div>
+          </div>
+          <div class="etas" id="b276a_o"><div class="empty">…</div></div>
+        </section>
+        <section class="card mtr">
+          <div class="head">
+            <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">上水</span></div>
+            <div class="fromto">上水 → 粉嶺</div>
+          </div>
+          <div class="etas" id="eal_shs"><div class="empty">…</div></div>
+        </section>
       </div>
-      <div class="etas" id="b276b_o"><div class="empty">…</div></div>
-    </section>
-    <section class="card kmb">
-      <div class="head">
-        <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
-        <div class="fromto">天恆 → 上水</div>
+    </div>
+    <div class="section">
+      <div class="sec-label off">放工 · 返天水圍</div>
+      <div class="cards">
+        <section class="card mtr">
+          <div class="head">
+            <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">粉嶺</span></div>
+            <div class="fromto">粉嶺 → 上水</div>
+          </div>
+          <div class="etas" id="eal_fan"><div class="empty">…</div></div>
+        </section>
+        <section class="card kmb">
+          <div class="head">
+            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
+            <div class="fromto">上水 → 天澤</div>
+          </div>
+          <div class="etas" id="b276a_i"><div class="empty">…</div></div>
+        </section>
+        <section class="card kmb">
+          <div class="head">
+            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
+            <div class="fromto">上水 → 濕地公園</div>
+          </div>
+          <div class="etas" id="b276b_i"><div class="empty">…</div></div>
+        </section>
       </div>
-      <div class="etas" id="b276a_o"><div class="empty">…</div></div>
-    </section>
-    <section class="card mtr">
-      <div class="head">
-        <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">上水</span></div>
-        <div class="fromto">上水 → 粉嶺</div>
-      </div>
-      <div class="etas" id="eal_shs"><div class="empty">…</div></div>
-    </section>
-    <section class="card mtr">
-      <div class="head">
-        <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">粉嶺</span></div>
-        <div class="fromto">粉嶺 → 上水</div>
-      </div>
-      <div class="etas" id="eal_fan"><div class="empty">…</div></div>
-    </section>
-    <section class="card kmb">
-      <div class="head">
-        <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
-        <div class="fromto">上水 → 天澤</div>
-      </div>
-      <div class="etas" id="b276a_i"><div class="empty">…</div></div>
-    </section>
-    <section class="card kmb">
-      <div class="head">
-        <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
-        <div class="fromto">上水 → 濕地公園</div>
-      </div>
-      <div class="etas" id="b276b_i"><div class="empty">…</div></div>
-    </section>
-  </main>
+    </div>
+  </div>
   <footer class="bottom">
     <span id="status">更新中...</span>
     <button class="btn" onclick="fetchAll()">↻ 更新</button>
