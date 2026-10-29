@@ -162,9 +162,19 @@
         render('r780',(j.data||[]).filter(i=>i.dir==='I'||(i.dest_tc&&i.dest_tc.includes('柴灣'))));
       }catch(e){document.getElementById('r780').innerHTML='<div class="empty">無法取得</div>'}
       try{
-        const r=await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/001231/118');
-        const j=await r.json();
-        render('r118',(j.data||[]).filter(i=>i.dir==='O'));
+        // 118 日間城巴、夜間九巴；優先用有 ETA 嘅資料
+        let list=[];
+        try{
+          const r1=await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/001231/118');
+          const j1=await r1.json();
+          list=(j1.data||[]).filter(i=>i.eta);
+        }catch(e){}
+        if(!list.length){
+          const r2=await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/0DCC18C3A018C1DA');
+          const j2=await r2.json();
+          list=(j2.data||[]).filter(i=>i.route==='118'&&i.eta);
+        }
+        render('r118',list);
       }catch(e){document.getElementById('r118').innerHTML='<div class="empty">無法取得</div>'}
       try{
         const r=await fetch('https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TML&sta=HUH');
