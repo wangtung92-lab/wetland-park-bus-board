@@ -11,7 +11,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%; height: 100%;
-      background: #1a2332;
+      background: #121820;
       color: #e8eef6;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
       -webkit-tap-highlight-color: transparent;
@@ -21,136 +21,156 @@
     body {
       display: flex;
       flex-direction: column;
-      padding: 8px 10px 10px;
-      gap: 6px;
+      padding: 10px 12px 12px;
+      gap: 8px;
       height: 100%;
     }
     .top {
-      background: linear-gradient(180deg, #243044 0%, #1e2a3a 100%);
-      border: 1px solid rgba(140,170,210,0.14);
-      border-radius: 12px;
-      padding: 8px 12px;
+      background: #1c2533;
+      border-radius: 14px;
+      padding: 12px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-shrink: 0;
     }
-    .station { display: flex; align-items: center; gap: 8px; }
+    .station { display: flex; align-items: center; gap: 10px; }
     .bus-icon {
-      width: 32px; height: 32px;
-      background: #2c3b52;
-      border-radius: 8px;
+      width: 38px; height: 38px;
+      background: #2a3548;
+      border-radius: 11px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
     }
-    .station-name { font-size: 0.95rem; font-weight: 800; color: #f0f5fb; }
-    .station-sub { font-size: 0.65rem; color: #9aafc4; }
+    .station-name { font-size: 1rem; font-weight: 800; color: #f2f6fc; letter-spacing: 0.2px; }
+    .station-sub { font-size: 0.68rem; color: #8fa3b8; margin-top: 1px; }
     .right-info { text-align: right; }
-    .clock { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #f0f5fb; line-height: 1.1; }
-    .weather { font-size: 0.75rem; color: #7ec8ff; margin-top: 1px; }
+    .clock {
+      font-size: 1.4rem; font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #f2f6fc; line-height: 1.15;
+      letter-spacing: 0.5px;
+    }
+    .weather { font-size: 0.78rem; color: #7ec8ff; margin-top: 2px; }
     .cards {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       flex: 1;
       min-height: 0;
     }
     .card {
-      background: linear-gradient(165deg, #243044 0%, #1e2a3a 100%);
-      border: 1px solid rgba(140,170,210,0.13);
-      border-radius: 12px;
+      background: #1c2533;
+      border-radius: 14px;
       overflow: hidden;
-      position: relative;
       display: flex;
       flex-direction: column;
       flex: 1;
       min-height: 0;
+      border-left: 4px solid transparent;
     }
-    .card::before {
-      content: "";
-      position: absolute; top: 0; left: 0; right: 0; height: 2.5px;
-    }
-    .card.ctb::before { background: #f0c000; }
-    .card.kmb::before { background: #e84a5f; }
+    .card.ctb { border-left-color: #f0c000; }
+    .card.kmb { border-left-color: #e84a5f; }
     .card-head {
-      padding: 7px 10px 5px;
+      padding: 10px 12px 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(140,170,210,0.1);
       flex-shrink: 0;
     }
-    .route-left { display: flex; align-items: center; gap: 6px; }
+    .route-left { display: flex; align-items: center; gap: 8px; }
     .op-badge {
-      font-size: 0.6rem; font-weight: 800;
-      padding: 2px 6px; border-radius: 4px;
+      font-size: 0.62rem; font-weight: 800;
+      padding: 3px 7px; border-radius: 6px;
+      letter-spacing: 0.3px;
     }
-    .op-badge.ctb { background: #f0c000; color: #1a1a1a; }
+    .op-badge.ctb { background: #f0c000; color: #1a1400; }
     .op-badge.kmb { background: #e84a5f; color: #fff; }
-    .route-num { font-size: 1.4rem; font-weight: 900; line-height: 1; }
+    .route-num {
+      font-size: 1.55rem; font-weight: 900; line-height: 1;
+      letter-spacing: -0.5px;
+    }
     .card.ctb .route-num { color: #f0c000; }
     .card.kmb .route-num { color: #ff6b7a; }
-    .dest-name { font-size: 0.85rem; font-weight: 700; color: #f0f5fb; text-align: right; }
+    .dest-name {
+      font-size: 0.88rem; font-weight: 600;
+      color: #c5d4e5; text-align: right;
+    }
     .eta-list {
-      padding: 5px 8px;
+      padding: 0 10px 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
       flex: 1;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 0;
     }
     .eta-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid rgba(140,170,210,0.08);
-      border-radius: 8px;
-      padding: 6px 9px;
+      gap: 10px;
+      background: #151c28;
+      border-radius: 10px;
+      padding: 9px 11px;
     }
     .eta-item.first {
-      background: rgba(80,150,220,0.14);
-      border-color: rgba(80,150,220,0.35);
+      background: #1a2d42;
+      box-shadow: inset 0 0 0 1px rgba(80,150,220,0.25);
     }
     .eta-seq {
-      width: 18px; height: 18px; border-radius: 5px;
-      background: #2c3b52; color: #9aafc4;
-      font-size: 0.65rem; font-weight: 700;
+      width: 20px; height: 20px; border-radius: 6px;
+      background: #2a3548; color: #8fa3b8;
+      font-size: 0.68rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
     .eta-item.first .eta-seq { background: #3d8fd1; color: #fff; }
-    .eta-time { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; flex: 1; }
-    .eta-mins { font-size: 0.95rem; font-weight: 800; color: #5dce7a; white-space: nowrap; }
+    .eta-time {
+      font-size: 1.05rem; font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #f2f6fc;
+      min-width: 3.2em;
+    }
+    .eta-mins {
+      font-size: 1rem; font-weight: 800;
+      color: #5dce7a;
+      margin-left: auto;
+      white-space: nowrap;
+    }
     .eta-item.first .eta-mins { color: #7ec8ff; }
-    .eta-dest { font-size: 0.62rem; color: #9ad0ff; margin-left: 4px; white-space: nowrap; }
+    .eta-dest {
+      font-size: 0.7rem; color: #8eb8d8;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
     .empty {
-      padding: 10px;
-      text-align: center;
-      color: #7a90a8;
-      font-size: 0.85rem;
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      color: #6b7f94;
+      font-size: 0.88rem;
+      padding: 12px;
     }
     .bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #1e2a3a;
-      border: 1px solid rgba(140,170,210,0.12);
-      border-radius: 10px;
-      padding: 6px 12px;
-      font-size: 0.7rem;
-      color: #9aafc4;
+      background: #1c2533;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 0.72rem;
+      color: #8fa3b8;
       flex-shrink: 0;
     }
     .btn {
-      border: 1px solid rgba(140,170,210,0.15);
+      border: none;
       color: #c5d4e5;
-      font-size: 0.72rem;
-      padding: 5px 12px;
-      border-radius: 7px;
-      background: #2c3b52;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: #2a3548;
     }
+    .btn:active { background: #354860; }
   </style>
 </head>
 <body>
@@ -253,7 +273,7 @@
         const f = formatEta(item.eta, options.journey || 0);
         if (!f || count >= 2) continue;
         const isFirst = count === 0;
-        const destHtml = f.destTime ? `<span class="eta-dest">→${options.destLabel} ${f.destTime}</span>` : '';
+        const destHtml = f.destTime ? `<span class="eta-dest">→ ${options.destLabel} ${f.destTime}</span>` : '';
         html += `<div class="eta-item ${isFirst ? 'first' : ''}">
           <div class="eta-seq">${count + 1}</div>
           <div class="eta-time">${f.time}</div>
