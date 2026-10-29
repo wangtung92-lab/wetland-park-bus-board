@@ -5,33 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="版本一">
-  <title>版本一 · 出行看板</title>
+  <meta name="apple-mobile-web-app-title" content="港島過海">
+  <title>港島過海</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{width:100%;height:100%;background:#121820;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Noto Sans TC",sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;overflow:hidden}
     body{display:flex;flex-direction:column;padding:10px 12px 12px;gap:8px;height:100%}
     .top{background:#1c2533;border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .title{font-size:1rem;font-weight:800;color:#f2f6fc}
-    .sub{font-size:.68rem;color:#8fa3b8;margin-top:2px}
-    .clock{font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+    .title{font-size:1.35rem;font-weight:900;color:#f2f6fc;letter-spacing:0.5px}
+    .sub{font-size:.72rem;color:#8fa3b8;margin-top:3px}
+    .right{text-align:right}
+    .clock{font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+    .meta{font-size:.75rem;color:#7ec8ff;margin-top:3px}
     .cards{display:flex;flex-direction:column;gap:7px;flex:1;min-height:0}
     .card{background:#1c2533;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:4px solid #4a90d9}
     .card.ctb{border-left-color:#f0c000}
-    .card.kmb{border-left-color:#e84a5f}
     .card.mtr{border-left-color:#6b4fbb}
     .head{padding:8px 11px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .route-left{display:flex;align-items:center;gap:7px}
     .badge{font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:5px}
     .badge.ctb{background:#f0c000;color:#1a1400}
-    .badge.kmb{background:#e84a5f;color:#fff}
     .badge.mtr{background:#6b4fbb;color:#fff}
     .rnum{font-size:1.25rem;font-weight:900;line-height:1}
     .card.ctb .rnum{color:#f0c000}
-    .card.kmb .rnum{color:#ff6b7a}
     .card.mtr .rnum{color:#b39ddb}
     .fromto{font-size:.72rem;color:#c5d4e5;text-align:right;line-height:1.25}
-    .etas{padding:0 9px 8px;display:flex;flex-direction:column;gap:4px;flex:1;justify-content:flex-start;min-height:0}
+    .etas{padding:0 9px 8px;display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
     .eta{display:flex;align-items:center;gap:8px;background:#151c28;border-radius:9px;padding:7px 10px}
     .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.25)}
     .seq{width:18px;height:18px;border-radius:5px;background:#2a3548;color:#8fa3b8;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -48,10 +47,13 @@
 <body>
   <header class="top">
     <div>
-      <div class="title">版本一</div>
-      <div class="sub">967 · 780 · 118 · 西鐵</div>
+      <div class="title">港島過海</div>
+      <div class="sub">967 · 780 · 118 · 屯馬綫</div>
     </div>
-    <div class="clock" id="clock">00:00:00</div>
+    <div class="right">
+      <div class="clock" id="clock">00:00:00</div>
+      <div class="meta"><span id="date">—</span> · <span id="weather-icon">🌤</span> <span id="temp">--°C</span></div>
+    </div>
   </header>
   <main class="cards">
     <section class="card ctb">
@@ -88,9 +90,30 @@
     <button class="btn" onclick="fetchAll()">↻ 更新</button>
   </footer>
   <script>
-    const JOURNEY={967:52};
-    function clock(){document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8)}
-    setInterval(clock,1000);clock();
+    const weekdays=['日','一','二','三','四','五','六'];
+    function updateClock(){
+      const now=new Date();
+      document.getElementById('clock').textContent=now.toTimeString().slice(0,8);
+      const m=String(now.getMonth()+1).padStart(2,'0');
+      const d=String(now.getDate()).padStart(2,'0');
+      document.getElementById('date').textContent=m+'/'+d+' 週'+weekdays[now.getDay()];
+    }
+    setInterval(updateClock,1000);updateClock();
+    async function fetchWeather(){
+      try{
+        const res=await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=tc');
+        const data=await res.json();
+        if(data.temperature&&data.temperature.data){
+          const t=data.temperature.data.find(x=>x.place==='京士柏'||x.place==='香港天文台')||data.temperature.data[0];
+          document.getElementById('temp').textContent=t.value+'°C';
+        }
+        if(data.icon&&data.icon[0]){
+          const icon=data.icon[0];
+          document.getElementById('weather-icon').textContent=icon<=2?'☀️':icon<=6?'⛅':icon<=10?'☁️':icon<=14?'🌧':'🌤';
+        }
+      }catch(e){}
+    }
+    fetchWeather();setInterval(fetchWeather,300000);
     function fmt(etaStr,j=0){
       if(!etaStr)return null;
       const eta=new Date(etaStr),diff=Math.floor((eta-new Date())/60000);
