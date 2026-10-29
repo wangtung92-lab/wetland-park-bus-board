@@ -16,160 +16,120 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     body {
       display: flex;
       flex-direction: column;
-      padding: 10px 12px 12px;
-      gap: 8px;
-      min-height: 100%;
+      padding: 8px 10px 10px;
+      gap: 6px;
+      height: 100%;
     }
     .top {
       background: linear-gradient(180deg, #243044 0%, #1e2a3a 100%);
       border: 1px solid rgba(140,170,210,0.14);
-      border-radius: 14px;
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-    .top-row {
+      border-radius: 12px;
+      padding: 8px 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
     }
-    .station {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .station { display: flex; align-items: center; gap: 8px; }
     .bus-icon {
-      width: 36px; height: 36px;
+      width: 32px; height: 32px;
       background: #2c3b52;
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
     }
-    .station-name { font-size: 1.05rem; font-weight: 800; color: #f0f5fb; }
-    .station-sub { font-size: 0.7rem; color: #9aafc4; }
-    .live {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: rgba(70,140,200,0.22); color: #7ec8ff;
-      font-size: 0.62rem; font-weight: 700;
-      padding: 2px 7px; border-radius: 5px; margin-bottom: 2px;
-    }
-    .live::before {
-      content: ""; width: 5px; height: 5px; background: #5dce7a;
-      border-radius: 50%; animation: pulse 1.6s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
-    .clock-wrap { text-align: right; }
-    .clock { font-size: 1.55rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #f0f5fb; line-height: 1.1; }
-    .date { font-size: 0.7rem; color: #9aafc4; margin-top: 1px; }
-    .weather-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 6px; border-top: 1px solid rgba(140,170,210,0.1);
-      font-size: 0.85rem;
-    }
-    .weather-temp { font-weight: 700; color: #f0f5fb; }
-    .weather-hum { color: #7ec8ff; }
+    .station-name { font-size: 0.95rem; font-weight: 800; color: #f0f5fb; }
+    .station-sub { font-size: 0.65rem; color: #9aafc4; }
+    .right-info { text-align: right; }
+    .clock { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #f0f5fb; line-height: 1.1; }
+    .weather { font-size: 0.75rem; color: #7ec8ff; margin-top: 1px; }
     .cards {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
       flex: 1;
+      min-height: 0;
     }
     .card {
       background: linear-gradient(165deg, #243044 0%, #1e2a3a 100%);
       border: 1px solid rgba(140,170,210,0.13);
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
     }
     .card::before {
       content: "";
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      position: absolute; top: 0; left: 0; right: 0; height: 2.5px;
     }
-    .card.ctb::before { background: linear-gradient(90deg, #f0c000, #e8b800); }
-    .card.kmb::before { background: linear-gradient(90deg, #e84a5f, #d63a4e); }
+    .card.ctb::before { background: #f0c000; }
+    .card.kmb::before { background: #e84a5f; }
     .card-head {
-      padding: 10px 12px 8px;
+      padding: 7px 10px 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(140,170,210,0.1);
+      flex-shrink: 0;
     }
-    .route-left { display: flex; align-items: center; gap: 8px; }
+    .route-left { display: flex; align-items: center; gap: 6px; }
     .op-badge {
-      font-size: 0.65rem; font-weight: 800;
-      padding: 2px 7px; border-radius: 5px;
+      font-size: 0.6rem; font-weight: 800;
+      padding: 2px 6px; border-radius: 4px;
     }
     .op-badge.ctb { background: #f0c000; color: #1a1a1a; }
     .op-badge.kmb { background: #e84a5f; color: #fff; }
-    .route-num {
-      font-size: 1.7rem; font-weight: 900; line-height: 1;
-    }
+    .route-num { font-size: 1.4rem; font-weight: 900; line-height: 1; }
     .card.ctb .route-num { color: #f0c000; }
     .card.kmb .route-num { color: #ff6b7a; }
-    .dest-block { text-align: right; }
-    .dest-label { font-size: 0.62rem; color: #7a90a8; }
-    .dest-name { font-size: 0.95rem; font-weight: 700; color: #f0f5fb; }
+    .dest-name { font-size: 0.85rem; font-weight: 700; color: #f0f5fb; text-align: right; }
     .eta-list {
-      padding: 8px 10px;
+      padding: 5px 8px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
+      flex: 1;
+      justify-content: center;
+      min-height: 0;
     }
     .eta-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: rgba(255,255,255,0.035);
       border: 1px solid rgba(140,170,210,0.08);
-      border-radius: 10px;
-      padding: 9px 11px;
+      border-radius: 8px;
+      padding: 6px 9px;
     }
     .eta-item.first {
       background: rgba(80,150,220,0.14);
       border-color: rgba(80,150,220,0.35);
     }
     .eta-seq {
-      width: 22px; height: 22px; border-radius: 7px;
+      width: 18px; height: 18px; border-radius: 5px;
       background: #2c3b52; color: #9aafc4;
-      font-size: 0.72rem; font-weight: 700;
+      font-size: 0.65rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
     .eta-item.first .eta-seq { background: #3d8fd1; color: #fff; }
-    .eta-info { flex: 1; min-width: 0; }
-    .eta-time { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .eta-remark { font-size: 0.65rem; color: #7a90a8; margin-top: 1px; }
-    .eta-right { text-align: right; flex-shrink: 0; }
-    .eta-mins { font-size: 1.1rem; font-weight: 800; color: #5dce7a; white-space: nowrap; }
-    .eta-item.first .eta-mins { color: #7ec8ff; font-size: 1.2rem; }
-    .eta-dest { font-size: 0.68rem; color: #9aafc4; margin-top: 1px; }
-    .eta-item.first .eta-dest { color: #9ad0ff; }
+    .eta-time { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; flex: 1; }
+    .eta-mins { font-size: 0.95rem; font-weight: 800; color: #5dce7a; white-space: nowrap; }
+    .eta-item.first .eta-mins { color: #7ec8ff; }
+    .eta-dest { font-size: 0.62rem; color: #9ad0ff; margin-left: 4px; white-space: nowrap; }
     .empty {
-      padding: 16px;
+      padding: 10px;
       text-align: center;
       color: #7a90a8;
-      font-size: 0.9rem;
-    }
-    .card-foot {
-      padding: 6px 12px;
-      border-top: 1px solid rgba(140,170,210,0.1);
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.68rem;
-      color: #7a90a8;
-    }
-    .card-foot .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: #5dce7a;
-      display: inline-block;
-      margin-right: 4px;
+      font-size: 0.85rem;
     }
     .bottom {
       display: flex;
@@ -177,54 +137,34 @@
       align-items: center;
       background: #1e2a3a;
       border: 1px solid rgba(140,170,210,0.12);
-      border-radius: 12px;
-      padding: 8px 12px;
-      font-size: 0.75rem;
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
       color: #9aafc4;
       flex-shrink: 0;
     }
-    .status-left { display: flex; align-items: center; gap: 6px; }
-    .status-dot {
-      width: 7px; height: 7px; background: #5dce7a;
-      border-radius: 50%; animation: pulse 1.6s infinite;
-    }
-    .status-dot.off { background: #7a90a8; animation: none; }
-    .btn-group { display: flex; gap: 6px; }
     .btn {
       border: 1px solid rgba(140,170,210,0.15);
       color: #c5d4e5;
-      font-size: 0.75rem;
-      padding: 6px 11px;
-      border-radius: 8px;
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      border-radius: 7px;
       background: #2c3b52;
-    }
-    .btn.on {
-      background: rgba(93,206,122,0.18);
-      border-color: rgba(93,206,122,0.45);
-      color: #5dce7a;
-      font-weight: 700;
     }
   </style>
 </head>
 <body>
   <header class="top">
-    <div class="top-row">
-      <div class="station">
-        <div class="bus-icon">🚌</div>
-        <div>
-          <div class="live">LIVE</div>
-          <div class="station-name">濕地公園路站</div>
-          <div class="station-sub">天水圍</div>
-        </div>
-      </div>
-      <div class="clock-wrap">
-        <div class="clock" id="clock">00:00:00</div>
-        <div class="date" id="date">—</div>
+    <div class="station">
+      <div class="bus-icon">🚌</div>
+      <div>
+        <div class="station-name">濕地公園路站</div>
+        <div class="station-sub">天水圍</div>
       </div>
     </div>
-    <div class="weather-row">
-      <span class="weather-temp"><span id="weather-icon">🌤</span> <span id="temp">--°C</span></span>
-      <span class="weather-hum">濕度 <span id="humidity">--%</span></span>
+    <div class="right-info">
+      <div class="clock" id="clock">00:00:00</div>
+      <div class="weather"><span id="weather-icon">🌤</span> <span id="temp">--°C</span> · <span id="humidity">--%</span></div>
     </div>
   </header>
   <main class="cards">
@@ -234,16 +174,9 @@
           <span class="op-badge ctb">城巴</span>
           <span class="route-num">967</span>
         </div>
-        <div class="dest-block">
-          <div class="dest-label">往</div>
-          <div class="dest-name">金鐘 (西)</div>
-        </div>
+        <div class="dest-name">金鐘 (西)</div>
       </div>
       <div class="eta-list" id="eta-967"><div class="empty">載入中...</div></div>
-      <div class="card-foot">
-        <span><span class="dot"></span>預計車程約 52 分</span>
-        <span id="ts-967">—</span>
-      </div>
     </section>
     <section class="card kmb">
       <div class="card-head">
@@ -251,16 +184,9 @@
           <span class="op-badge kmb">九巴</span>
           <span class="route-num">69</span>
         </div>
-        <div class="dest-block">
-          <div class="dest-label">往</div>
-          <div class="dest-name">元朗 (德業街)</div>
-        </div>
+        <div class="dest-name">元朗 (德業街)</div>
       </div>
       <div class="eta-list" id="eta-69"><div class="empty">載入中...</div></div>
-      <div class="card-foot">
-        <span><span class="dot"></span>九巴實時</span>
-        <span id="ts-69">—</span>
-      </div>
     </section>
     <section class="card kmb">
       <div class="card-head">
@@ -268,77 +194,19 @@
           <span class="op-badge kmb">九巴</span>
           <span class="route-num">276B</span>
         </div>
-        <div class="dest-block">
-          <div class="dest-label">往</div>
-          <div class="dest-name">上水 (彩園)</div>
-        </div>
+        <div class="dest-name">上水 (彩園)</div>
       </div>
       <div class="eta-list" id="eta-276b"><div class="empty">載入中...</div></div>
-      <div class="card-foot">
-        <span><span class="dot"></span>預計車程約 40 分</span>
-        <span id="ts-276b">—</span>
-      </div>
     </section>
   </main>
   <footer class="bottom">
-    <div class="status-left">
-      <span class="status-dot" id="status-dot"></span>
-      <span id="wake-status">—</span>
-    </div>
-    <div class="btn-group">
-      <button class="btn on" id="mode-btn" onclick="toggleHomeMode()">🏠 屋企</button>
-      <button class="btn" onclick="fetchData()">↻</button>
-    </div>
+    <span id="status">更新中...</span>
+    <button class="btn" onclick="fetchData()">↻ 更新</button>
   </footer>
   <script>
-    const weekdays = ['日','一','二','三','四','五','六'];
     const JOURNEY = { '967': 52, '276B': 40 };
-    let wakeLock = null;
-    let isHome = localStorage.getItem('busBoardHome') !== '0';
-    function updateModeUI() {
-      const btn = document.getElementById('mode-btn');
-      const status = document.getElementById('wake-status');
-      const dot = document.getElementById('status-dot');
-      if (isHome) {
-        btn.textContent = '🏠 屋企';
-        btn.className = 'btn on';
-        status.textContent = '螢幕保持開啟';
-        dot.classList.remove('off');
-        requestWakeLock();
-      } else {
-        btn.textContent = '🚶 出門';
-        btn.className = 'btn';
-        status.textContent = '可熄屏';
-        dot.classList.add('off');
-        releaseWakeLock();
-      }
-    }
-    function toggleHomeMode() {
-      isHome = !isHome;
-      localStorage.setItem('busBoardHome', isHome ? '1' : '0');
-      updateModeUI();
-    }
-    async function requestWakeLock() {
-      if (!isHome) return;
-      try {
-        if ('wakeLock' in navigator) {
-          wakeLock = await navigator.wakeLock.request('screen');
-        }
-      } catch (e) {}
-    }
-    function releaseWakeLock() {
-      if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
-    }
-    updateModeUI();
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && isHome) requestWakeLock();
-    });
     function updateClock() {
-      const now = new Date();
-      document.getElementById('clock').textContent = now.toTimeString().substring(0, 8);
-      const m = String(now.getMonth() + 1).padStart(2, '0');
-      const d = String(now.getDate()).padStart(2, '0');
-      document.getElementById('date').textContent = `${m}/${d} 週${weekdays[now.getDay()]}`;
+      document.getElementById('clock').textContent = new Date().toTimeString().substring(0, 8);
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -348,9 +216,9 @@
         const data = await res.json();
         if (data.temperature?.data) {
           const t = data.temperature.data.find(x => x.place === '濕地公園' || x.place === '元朗') || data.temperature.data[0];
-          document.getElementById('temp').textContent = `${t.value}°C`;
+          document.getElementById('temp').textContent = t.value + '°C';
         }
-        if (data.humidity?.data) document.getElementById('humidity').textContent = `${data.humidity.data[0].value}%`;
+        if (data.humidity?.data) document.getElementById('humidity').textContent = data.humidity.data[0].value + '%';
         if (data.icon?.[0]) {
           const icon = data.icon[0];
           document.getElementById('weather-icon').textContent =
@@ -370,60 +238,54 @@
       if (journeyMins > 0) {
         destTime = new Date(eta.getTime() + journeyMins * 60000).toTimeString().substring(0, 5);
       }
-      if (diff <= 0) return { time, mins: '即將到站', soon: true, destTime };
-      return { time, mins: `${diff} 分`, soon: false, destTime };
+      if (diff <= 0) return { time, mins: '即將到', destTime };
+      return { time, mins: diff + ' 分', destTime };
     }
-    function renderList(containerId, items, tsId, options = {}) {
+    function renderList(containerId, items, options = {}) {
       const el = document.getElementById(containerId);
-      const tsEl = document.getElementById(tsId);
-      if (tsEl) tsEl.textContent = new Date().toTimeString().substring(0, 8);
       if (!items || items.length === 0) {
-        el.innerHTML = `<div class="empty">暫無班次</div>`;
+        el.innerHTML = '<div class="empty">暫無班次</div>';
         return;
       }
       let html = '';
       let count = 0;
       for (const item of items) {
         const f = formatEta(item.eta, options.journey || 0);
-        if (!f || count >= 3) continue;
+        if (!f || count >= 2) continue;
         const isFirst = count === 0;
-        const remark = item.rmk_tc || (item.co === 'CTB' ? '城巴實時' : '九巴實時');
-        const destHtml = f.destTime ? `<div class="eta-dest">預計${options.destLabel} ${f.destTime}</div>` : '';
+        const destHtml = f.destTime ? `<span class="eta-dest">→${options.destLabel} ${f.destTime}</span>` : '';
         html += `<div class="eta-item ${isFirst ? 'first' : ''}">
           <div class="eta-seq">${count + 1}</div>
-          <div class="eta-info">
-            <div class="eta-time">${f.time}</div>
-            <div class="eta-remark">${remark}</div>
-          </div>
-          <div class="eta-right">
-            <div class="eta-mins">${f.mins}</div>
-            ${destHtml}
-          </div>
+          <div class="eta-time">${f.time}</div>
+          <div class="eta-mins">${f.mins}</div>
+          ${destHtml}
         </div>`;
         count++;
       }
-      el.innerHTML = html || `<div class="empty">暫無班次</div>`;
+      el.innerHTML = html || '<div class="empty">暫無班次</div>';
     }
     async function fetchData() {
+      document.getElementById('status').textContent = '更新中...';
       try {
         const res = await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/002622/967');
         const json = await res.json();
         const list = (json.data || []).filter(i => i.dir === 'O' || (i.dest_tc && i.dest_tc.includes('金鐘')));
-        renderList('eta-967', list, 'ts-967', { journey: JOURNEY['967'], destLabel: '大會堂' });
+        renderList('eta-967', list, { journey: JOURNEY['967'], destLabel: '大會堂' });
       } catch (e) {
-        document.getElementById('eta-967').innerHTML = `<div class="empty">無法取得</div>`;
+        document.getElementById('eta-967').innerHTML = '<div class="empty">無法取得</div>';
       }
       try {
         const res = await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/4C86E1F44AE9C25B');
         const json = await res.json();
         const list = json.data || [];
-        renderList('eta-69', list.filter(i => i.route === '69' && i.dir === 'O'), 'ts-69');
-        renderList('eta-276b', list.filter(i => i.route === '276B' && i.dir === 'O'), 'ts-276b',
+        renderList('eta-69', list.filter(i => i.route === '69' && i.dir === 'O'));
+        renderList('eta-276b', list.filter(i => i.route === '276B' && i.dir === 'O'),
           { journey: JOURNEY['276B'], destLabel: '上水' });
       } catch (e) {
-        document.getElementById('eta-69').innerHTML = `<div class="empty">無法取得</div>`;
-        document.getElementById('eta-276b').innerHTML = `<div class="empty">無法取得</div>`;
+        document.getElementById('eta-69').innerHTML = '<div class="empty">無法取得</div>';
+        document.getElementById('eta-276b').innerHTML = '<div class="empty">無法取得</div>';
       }
+      document.getElementById('status').textContent = '已更新 ' + new Date().toTimeString().substring(0, 8);
     }
     fetchData();
     setInterval(fetchData, 15000);
