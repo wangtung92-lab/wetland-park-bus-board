@@ -9,36 +9,35 @@
   <title>天水圍 ⇄ 上水</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{width:100%;height:100%;background:#121820;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Noto Sans TC",sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;overflow:hidden}
-    body{display:flex;flex-direction:column;padding:12px 14px 14px;gap:10px;height:100%}
-    .top{background:#1c2533;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .title{font-size:1.3rem;font-weight:900;letter-spacing:0.3px}
-    .sub{font-size:.72rem;color:#8fa3b8;margin-top:3px}
+    html,body{width:100%;height:100%;background:#0e141c;color:#eef3f8;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Noto Sans TC",sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;overflow:hidden}
+    body{display:flex;flex-direction:column;padding:14px 16px 16px;gap:12px;height:100%}
+    .top{background:linear-gradient(145deg,#1a2330,#151c28);border-radius:16px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;border:1px solid rgba(255,255,255,0.04)}
+    .title{font-size:1.35rem;font-weight:800;letter-spacing:0.4px}
+    .sub{font-size:.7rem;color:#7a8fa3;margin-top:4px;font-weight:500}
     .right{text-align:right}
-    .clock{font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
-    .meta{font-size:.75rem;color:#7ec8ff;margin-top:3px}
+    .clock{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:0.5px}
+    .meta{font-size:.72rem;color:#6eb6ff;margin-top:4px}
     .cards{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
-    .card{background:#1c2533;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:4px solid #e84a5f}
-    .head{padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;gap:10px}
-    .route-left{display:flex;flex-direction:column;gap:3px}
+    .card{background:linear-gradient(160deg,#1a2330 0%,#151c28 100%);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border:1px solid rgba(255,255,255,0.04);position:relative}
+    .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#ff5a6e,#e84a5f);border-radius:4px 0 0 4px}
+    .head{padding:14px 16px 6px 18px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
     .route-row{display:flex;align-items:center;gap:8px}
-    .badge{font-size:.6rem;font-weight:800;padding:3px 7px;border-radius:5px;background:#e84a5f;color:#fff}
-    .rnum{font-size:1.5rem;font-weight:900;line-height:1;color:#ff6b7a}
-    .terminus{font-size:.7rem;color:#8fa3b8}
-    .fromto{font-size:.88rem;font-weight:700;color:#f2f6fc;text-align:right;line-height:1.3}
-    .fromto span{display:block;font-size:.7rem;font-weight:500;color:#8fa3b8}
-    .etas{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;justify-content:center}
-    .eta{display:flex;align-items:center;gap:10px;background:#151c28;border-radius:10px;padding:10px 12px}
-    .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.25)}
-    .seq{width:20px;height:20px;border-radius:6px;background:#2a3548;color:#8fa3b8;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .badge{font-size:.58rem;font-weight:800;padding:3px 7px;border-radius:6px;background:#e84a5f;color:#fff;letter-spacing:0.3px}
+    .rnum{font-size:1.55rem;font-weight:900;color:#ff6b7a;letter-spacing:-0.5px}
+    .fromto{font-size:.82rem;font-weight:600;color:#c8d6e5;text-align:right;line-height:1.35}
+    .fromto span{display:block;font-size:.65rem;font-weight:500;color:#6b7f94;margin-bottom:1px}
+    .etas{padding:4px 14px 14px 18px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;justify-content:center}
+    .eta{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.22);border-radius:12px;padding:11px 14px}
+    .eta.first{background:rgba(45,110,180,0.18);box-shadow:inset 0 0 0 1px rgba(80,150,220,0.2)}
+    .seq{width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,0.08);color:#8fa3b8;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .eta.first .seq{background:#3d8fd1;color:#fff}
-    .time{font-size:1.08rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.8em}
-    .mins{font-size:1.02rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
+    .time{font-size:1.12rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.9em;letter-spacing:0.3px}
+    .mins{font-size:1rem;font-weight:800;color:#4fd67a;margin-left:auto;white-space:nowrap}
     .eta.first .mins{color:#7ec8ff}
-    .dest{font-size:.74rem;color:#8eb8d8;margin-left:6px;white-space:nowrap}
-    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.9rem;padding:8px}
-    .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:12px;padding:10px 14px;font-size:.72rem;color:#8fa3b8;flex-shrink:0}
-    .btn{border:none;color:#c5d4e5;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:8px;background:#2a3548}
+    .dest{font-size:.7rem;color:#7a9ab5;margin-left:8px;white-space:nowrap;font-weight:500}
+    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#5a6e82;font-size:.9rem;padding:12px}
+    .bottom{display:flex;justify-content:space-between;align-items:center;background:#151c28;border-radius:12px;padding:10px 16px;font-size:.7rem;color:#6b7f94;flex-shrink:0;border:1px solid rgba(255,255,255,0.03)}
+    .btn{border:none;color:#c5d4e5;font-size:.75rem;font-weight:600;padding:7px 16px;border-radius:9px;background:#243040}
   </style>
 </head>
 <body>
@@ -55,40 +54,28 @@
   <main class="cards">
     <section class="card">
       <div class="head">
-        <div class="route-left">
-          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
-          <div class="terminus">總站：上水（彩園）</div>
-        </div>
+        <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
         <div class="fromto"><span>由 濕地公園</span>→ 上水站</div>
       </div>
       <div class="etas" id="b276b_o"><div class="empty">載入中...</div></div>
     </section>
     <section class="card">
       <div class="head">
-        <div class="route-left">
-          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
-          <div class="terminus">總站：上水（太平）</div>
-        </div>
+        <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
         <div class="fromto"><span>由 天恆</span>→ 上水站</div>
       </div>
       <div class="etas" id="b276a_o"><div class="empty">載入中...</div></div>
     </section>
     <section class="card">
       <div class="head">
-        <div class="route-left">
-          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
-          <div class="terminus">總站：天恆邨</div>
-        </div>
+        <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
         <div class="fromto"><span>由 上水</span>→ 天澤</div>
       </div>
       <div class="etas" id="b276a_i"><div class="empty">載入中...</div></div>
     </section>
     <section class="card">
       <div class="head">
-        <div class="route-left">
-          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
-          <div class="terminus">總站：天富</div>
-        </div>
+        <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
         <div class="fromto"><span>由 上水</span>→ 濕地公園</div>
       </div>
       <div class="etas" id="b276b_i"><div class="empty">載入中...</div></div>
