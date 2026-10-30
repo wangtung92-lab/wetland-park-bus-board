@@ -17,35 +17,39 @@
     .right{text-align:right}
     .clock{font-size:1.2rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
     .meta{font-size:.68rem;color:#7ec8ff;margin-top:2px}
-    .body{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0}
+    .body{display:flex;flex-direction:column;gap:5px;flex:1;min-height:0}
     .section{display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
-    .sec-label{font-size:.7rem;font-weight:800;letter-spacing:1px;padding:2px 4px 0;color:#9ad0ff;display:flex;align-items:center;gap:6px;flex-shrink:0}
+    .sec-label{font-size:.68rem;font-weight:800;letter-spacing:1px;padding:1px 4px 0;color:#9ad0ff;display:flex;align-items:center;gap:6px;flex-shrink:0}
     .sec-label.off{color:#f0b48a}
     .sec-label::after{content:"";flex:1;height:1px;background:rgba(140,170,210,0.15)}
     .cards{display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
     .card{background:#1c2533;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:3px solid #4a90d9}
     .card.kmb{border-left-color:#e84a5f}
     .card.mtr{border-left-color:#6b4fbb}
-    .head{padding:5px 9px 3px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .route-left{display:flex;align-items:center;gap:5px}
-    .badge{font-size:.52rem;font-weight:800;padding:2px 5px;border-radius:4px}
+    .head{padding:5px 9px 3px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;gap:6px}
+    .route-left{display:flex;flex-direction:column;gap:1px}
+    .route-row{display:flex;align-items:center;gap:5px}
+    .badge{font-size:.5rem;font-weight:800;padding:2px 5px;border-radius:4px}
     .badge.kmb{background:#e84a5f;color:#fff}
     .badge.mtr{background:#6b4fbb;color:#fff}
     .rnum{font-size:1rem;font-weight:900;line-height:1}
     .card.kmb .rnum{color:#ff6b7a}
     .card.mtr .rnum{color:#b39ddb}
-    .fromto{font-size:.66rem;color:#c5d4e5;text-align:right;line-height:1.2}
+    .terminus{font-size:.55rem;color:#8fa3b8}
+    .fromto{font-size:.7rem;font-weight:700;color:#f2f6fc;text-align:right;line-height:1.25}
+    .fromto span{display:block;font-size:.55rem;font-weight:500;color:#8fa3b8}
     .etas{padding:0 7px 5px;display:flex;flex-direction:column;gap:3px;flex:1;min-height:0;justify-content:center}
     .eta{display:flex;align-items:center;gap:6px;background:#151c28;border-radius:7px;padding:5px 8px}
     .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.22)}
-    .seq{width:15px;height:15px;border-radius:4px;background:#2a3548;color:#8fa3b8;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .seq{width:15px;height:15px;border-radius:4px;background:#2a3548;color:#8fa3b8;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .eta.first .seq{background:#3d8fd1;color:#fff}
-    .time{font-size:.82rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.5em}
-    .mins{font-size:.8rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
+    .time{font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.4em}
+    .mins{font-size:.78rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
     .eta.first .mins{color:#7ec8ff}
-    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.72rem;padding:3px}
-    .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:10px;padding:6px 11px;font-size:.66rem;color:#8fa3b8;flex-shrink:0}
-    .btn{border:none;color:#c5d4e5;font-size:.68rem;font-weight:600;padding:4px 11px;border-radius:7px;background:#2a3548}
+    .dest{font-size:.58rem;color:#8eb8d8;margin-left:4px;white-space:nowrap}
+    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.7rem;padding:2px}
+    .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:10px;padding:6px 11px;font-size:.64rem;color:#8fa3b8;flex-shrink:0}
+    .btn{border:none;color:#c5d4e5;font-size:.66rem;font-weight:600;padding:4px 11px;border-radius:7px;background:#2a3548}
   </style>
 </head>
 <body>
@@ -65,22 +69,31 @@
       <div class="cards">
         <section class="card kmb">
           <div class="head">
-            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
-            <div class="fromto">濕地公園 → 上水</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
+              <div class="terminus">總站：上水（彩園）</div>
+            </div>
+            <div class="fromto"><span>由 濕地公園</span>→ 上水站</div>
           </div>
           <div class="etas" id="b276b_o"><div class="empty">…</div></div>
         </section>
         <section class="card kmb">
           <div class="head">
-            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
-            <div class="fromto">天恆 → 上水</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
+              <div class="terminus">總站：上水（太平）</div>
+            </div>
+            <div class="fromto"><span>由 天恆</span>→ 上水站</div>
           </div>
           <div class="etas" id="b276a_o"><div class="empty">…</div></div>
         </section>
         <section class="card mtr">
           <div class="head">
-            <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">上水</span></div>
-            <div class="fromto">上水 → 粉嶺</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge mtr">東鐵</span><span class="rnum">上水</span></div>
+              <div class="terminus">往金鐘／羅湖方向</div>
+            </div>
+            <div class="fromto"><span>由 上水</span>→ 粉嶺</div>
           </div>
           <div class="etas" id="eal_shs"><div class="empty">…</div></div>
         </section>
@@ -91,22 +104,31 @@
       <div class="cards">
         <section class="card mtr">
           <div class="head">
-            <div class="route-left"><span class="badge mtr">東鐵</span><span class="rnum">粉嶺</span></div>
-            <div class="fromto">粉嶺 → 上水</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge mtr">東鐵</span><span class="rnum">粉嶺</span></div>
+              <div class="terminus">往羅湖／上水方向</div>
+            </div>
+            <div class="fromto"><span>由 粉嶺</span>→ 上水</div>
           </div>
           <div class="etas" id="eal_fan"><div class="empty">…</div></div>
         </section>
         <section class="card kmb">
           <div class="head">
-            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
-            <div class="fromto">上水 → 天澤</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge kmb">九巴</span><span class="rnum">276A</span></div>
+              <div class="terminus">總站：天恆邨</div>
+            </div>
+            <div class="fromto"><span>由 上水</span>→ 天澤</div>
           </div>
           <div class="etas" id="b276a_i"><div class="empty">…</div></div>
         </section>
         <section class="card kmb">
           <div class="head">
-            <div class="route-left"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
-            <div class="fromto">上水 → 濕地公園</div>
+            <div class="route-left">
+              <div class="route-row"><span class="badge kmb">九巴</span><span class="rnum">276B</span></div>
+              <div class="terminus">總站：天富</div>
+            </div>
+            <div class="fromto"><span>由 上水</span>→ 濕地公園</div>
           </div>
           <div class="etas" id="b276b_i"><div class="empty">…</div></div>
         </section>
@@ -119,6 +141,12 @@
   </footer>
   <script>
     const weekdays=['日','一','二','三','四','五','六'];
+    const JOURNEY = {
+      '276B_o': { mins: 40, label: '上水' },
+      '276A_o': { mins: 42, label: '上水' },
+      '276A_i': { mins: 38, label: '天澤' },
+      '276B_i': { mins: 40, label: '濕地公園' }
+    };
     function updateClock(){
       const now=new Date();
       document.getElementById('clock').textContent=now.toTimeString().slice(0,8);
@@ -142,19 +170,23 @@
       }catch(e){}
     }
     fetchWeather();setInterval(fetchWeather,300000);
-    function fmt(etaStr){
+    function fmt(etaStr, journeyMins){
       if(!etaStr)return null;
       const eta=new Date(etaStr),diff=Math.floor((eta-new Date())/60000);
       if(diff<-1)return null;
-      return{time:eta.toTimeString().slice(0,5),mins:diff<=0?'即將到':diff+' 分'};
+      const time=eta.toTimeString().slice(0,5);
+      let alight=null;
+      if(journeyMins>0) alight=new Date(eta.getTime()+journeyMins*60000).toTimeString().slice(0,5);
+      return{time,mins:diff<=0?'即將到':diff+' 分',alight};
     }
-    function render(id,items){
+    function render(id,items,opt={}){
       const el=document.getElementById(id);
       if(!items||!items.length){el.innerHTML='<div class="empty">暫無班次</div>';return}
       let html='',c=0;
       for(const it of items){
-        const f=fmt(it.eta);if(!f||c>=1)continue;
-        html+=`<div class="eta ${c===0?'first':''}"><div class="seq">${c+1}</div><div class="time">${f.time}</div><div class="mins">${f.mins}</div></div>`;
+        const f=fmt(it.eta,opt.journey||0);if(!f||c>=1)continue;
+        const d=f.alight?`<span class="dest">落車 ${opt.destLabel} ${f.alight}</span>`:'';
+        html+=`<div class="eta first"><div class="seq">1</div><div class="time">${f.time}</div><div class="mins">${f.mins}</div>${d}</div>`;
         c++;
       }
       el.innerHTML=html||'<div class="empty">暫無班次</div>';
@@ -166,7 +198,7 @@
       let html='';
       for(const t of arr.slice(0,1)){
         const mins=parseInt(t.ttnt,10);
-        const time=t.time?t.time.slice(11,16):'—';
+        const time=t.time&&t.time.length>=16?t.time.slice(11,16):'—';
         const label=isNaN(mins)||mins<=0?'即將到':mins+' 分';
         html+=`<div class="eta first"><div class="seq">1</div><div class="time">${time}</div><div class="mins">${label}</div></div>`;
       }
@@ -177,19 +209,23 @@
       try{
         const r=await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/4C86E1F44AE9C25B');
         const j=await r.json();
-        render('b276b_o',(j.data||[]).filter(i=>i.route==='276B'&&i.dir==='O'));
+        render('b276b_o',(j.data||[]).filter(i=>i.route==='276B'&&i.dir==='O'&&i.eta),
+          {journey:JOURNEY['276B_o'].mins,destLabel:JOURNEY['276B_o'].label});
       }catch(e){document.getElementById('b276b_o').innerHTML='<div class="empty">—</div>'}
       try{
         const r=await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/A22733425D08E68A');
         const j=await r.json();
-        render('b276a_o',(j.data||[]).filter(i=>i.route==='276A'&&i.dir==='O'));
+        render('b276a_o',(j.data||[]).filter(i=>i.route==='276A'&&i.dir==='O'&&i.eta),
+          {journey:JOURNEY['276A_o'].mins,destLabel:JOURNEY['276A_o'].label});
       }catch(e){document.getElementById('b276a_o').innerHTML='<div class="empty">—</div>'}
       try{
         const r=await fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/4E655B25ABAE103A');
         const j=await r.json();
         const list=j.data||[];
-        render('b276a_i',list.filter(i=>i.route==='276A'&&i.dir==='I'));
-        render('b276b_i',list.filter(i=>i.route==='276B'&&i.dir==='I'));
+        render('b276a_i',list.filter(i=>i.route==='276A'&&i.dir==='I'&&i.eta),
+          {journey:JOURNEY['276A_i'].mins,destLabel:JOURNEY['276A_i'].label});
+        render('b276b_i',list.filter(i=>i.route==='276B'&&i.dir==='I'&&i.eta),
+          {journey:JOURNEY['276B_i'].mins,destLabel:JOURNEY['276B_i'].label});
       }catch(e){
         document.getElementById('b276a_i').innerHTML='<div class="empty">—</div>';
         document.getElementById('b276b_i').innerHTML='<div class="empty">—</div>';
