@@ -12,36 +12,31 @@
     html,body{width:100%;height:100%;background:#121820;color:#e8eef6;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Noto Sans TC",sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;overflow:hidden}
     body{display:flex;flex-direction:column;padding:12px 14px 14px;gap:10px;height:100%}
     .top{background:#1c2533;border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .title{font-size:1.25rem;font-weight:900;letter-spacing:0.3px}
+    .title{font-size:1.3rem;font-weight:900;letter-spacing:0.3px}
     .sub{font-size:.72rem;color:#8fa3b8;margin-top:3px}
     .right{text-align:right}
     .clock{font-size:1.35rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
     .meta{font-size:.75rem;color:#7ec8ff;margin-top:3px}
-    .body{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
-    .section{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
-    .sec-label{font-size:.78rem;font-weight:800;letter-spacing:1px;padding:0 2px;color:#9ad0ff;display:flex;align-items:center;gap:8px;flex-shrink:0}
-    .sec-label.off{color:#f0b48a}
-    .sec-label::after{content:"";flex:1;height:1px;background:rgba(140,170,210,0.12)}
-    .cards{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0}
+    .cards{display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
     .card{background:#1c2533;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:4px solid #e84a5f}
     .head{padding:12px 14px 8px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;gap:10px}
     .route-left{display:flex;flex-direction:column;gap:3px}
     .route-row{display:flex;align-items:center;gap:8px}
     .badge{font-size:.6rem;font-weight:800;padding:3px 7px;border-radius:5px;background:#e84a5f;color:#fff}
-    .rnum{font-size:1.45rem;font-weight:900;line-height:1;color:#ff6b7a}
-    .terminus{font-size:.68rem;color:#8fa3b8}
-    .fromto{font-size:.85rem;font-weight:700;color:#f2f6fc;text-align:right;line-height:1.3}
-    .fromto span{display:block;font-size:.68rem;font-weight:500;color:#8fa3b8}
+    .rnum{font-size:1.5rem;font-weight:900;line-height:1;color:#ff6b7a}
+    .terminus{font-size:.7rem;color:#8fa3b8}
+    .fromto{font-size:.88rem;font-weight:700;color:#f2f6fc;text-align:right;line-height:1.3}
+    .fromto span{display:block;font-size:.7rem;font-weight:500;color:#8fa3b8}
     .etas{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;justify-content:center}
     .eta{display:flex;align-items:center;gap:10px;background:#151c28;border-radius:10px;padding:10px 12px}
     .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.25)}
     .seq{width:20px;height:20px;border-radius:6px;background:#2a3548;color:#8fa3b8;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .eta.first .seq{background:#3d8fd1;color:#fff}
-    .time{font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.8em}
-    .mins{font-size:1rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
+    .time{font-size:1.08rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.8em}
+    .mins{font-size:1.02rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
     .eta.first .mins{color:#7ec8ff}
-    .dest{font-size:.72rem;color:#8eb8d8;margin-left:6px;white-space:nowrap}
-    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.88rem;padding:8px}
+    .dest{font-size:.74rem;color:#8eb8d8;margin-left:6px;white-space:nowrap}
+    .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.9rem;padding:8px}
     .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:12px;padding:10px 14px;font-size:.72rem;color:#8fa3b8;flex-shrink:0}
     .btn{border:none;color:#c5d4e5;font-size:.75rem;font-weight:600;padding:6px 14px;border-radius:8px;background:#2a3548}
   </style>
@@ -50,65 +45,55 @@
   <header class="top">
     <div>
       <div class="title">天水圍 ⇄ 上水</div>
-      <div class="sub">返工上行 · 放工下行</div>
+      <div class="sub">276A · 276B</div>
     </div>
     <div class="right">
       <div class="clock" id="clock">00:00:00</div>
       <div class="meta"><span id="date">—</span> · <span id="weather-icon">🌤</span> <span id="temp">--°C</span></div>
     </div>
   </header>
-  <div class="body">
-    <div class="section">
-      <div class="sec-label">返工 · 去上水</div>
-      <div class="cards">
-        <section class="card">
-          <div class="head">
-            <div class="route-left">
-              <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
-              <div class="terminus">總站：上水（彩園）</div>
-            </div>
-            <div class="fromto"><span>由 濕地公園</span>→ 上水站</div>
-          </div>
-          <div class="etas" id="b276b_o"><div class="empty">載入中...</div></div>
-        </section>
-        <section class="card">
-          <div class="head">
-            <div class="route-left">
-              <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
-              <div class="terminus">總站：上水（太平）</div>
-            </div>
-            <div class="fromto"><span>由 天恆</span>→ 上水站</div>
-          </div>
-          <div class="etas" id="b276a_o"><div class="empty">載入中...</div></div>
-        </section>
+  <main class="cards">
+    <section class="card">
+      <div class="head">
+        <div class="route-left">
+          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
+          <div class="terminus">總站：上水（彩園）</div>
+        </div>
+        <div class="fromto"><span>由 濕地公園</span>→ 上水站</div>
       </div>
-    </div>
-    <div class="section">
-      <div class="sec-label off">放工 · 返天水圍</div>
-      <div class="cards">
-        <section class="card">
-          <div class="head">
-            <div class="route-left">
-              <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
-              <div class="terminus">總站：天恆邨</div>
-            </div>
-            <div class="fromto"><span>由 上水</span>→ 天澤</div>
-          </div>
-          <div class="etas" id="b276a_i"><div class="empty">載入中...</div></div>
-        </section>
-        <section class="card">
-          <div class="head">
-            <div class="route-left">
-              <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
-              <div class="terminus">總站：天富</div>
-            </div>
-            <div class="fromto"><span>由 上水</span>→ 濕地公園</div>
-          </div>
-          <div class="etas" id="b276b_i"><div class="empty">載入中...</div></div>
-        </section>
+      <div class="etas" id="b276b_o"><div class="empty">載入中...</div></div>
+    </section>
+    <section class="card">
+      <div class="head">
+        <div class="route-left">
+          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
+          <div class="terminus">總站：上水（太平）</div>
+        </div>
+        <div class="fromto"><span>由 天恆</span>→ 上水站</div>
       </div>
-    </div>
-  </div>
+      <div class="etas" id="b276a_o"><div class="empty">載入中...</div></div>
+    </section>
+    <section class="card">
+      <div class="head">
+        <div class="route-left">
+          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276A</span></div>
+          <div class="terminus">總站：天恆邨</div>
+        </div>
+        <div class="fromto"><span>由 上水</span>→ 天澤</div>
+      </div>
+      <div class="etas" id="b276a_i"><div class="empty">載入中...</div></div>
+    </section>
+    <section class="card">
+      <div class="head">
+        <div class="route-left">
+          <div class="route-row"><span class="badge">九巴</span><span class="rnum">276B</span></div>
+          <div class="terminus">總站：天富</div>
+        </div>
+        <div class="fromto"><span>由 上水</span>→ 濕地公園</div>
+      </div>
+      <div class="etas" id="b276b_i"><div class="empty">載入中...</div></div>
+    </section>
+  </main>
   <footer class="bottom">
     <span id="status">更新中...</span>
     <button class="btn" onclick="fetchAll()">↻ 更新</button>
