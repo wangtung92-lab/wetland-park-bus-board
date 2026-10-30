@@ -21,15 +21,19 @@
     .card{background:#1c2533;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;flex:1;min-height:0;border-left:4px solid #4a90d9}
     .card.ctb{border-left-color:#f0c000}
     .card.mtr{border-left-color:#6b4fbb}
-    .head{padding:8px 11px 6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-    .route-left{display:flex;align-items:center;gap:7px}
-    .badge{font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:5px}
+    .head{padding:8px 11px 6px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;gap:8px}
+    .route-left{display:flex;flex-direction:column;gap:3px}
+    .route-row{display:flex;align-items:center;gap:7px}
+    .badge{font-size:.58rem;font-weight:800;padding:2px 6px;border-radius:5px}
     .badge.ctb{background:#f0c000;color:#1a1400}
+    .badge.joint{background:#f0c000;color:#1a1400}
     .badge.mtr{background:#6b4fbb;color:#fff}
-    .rnum{font-size:1.25rem;font-weight:900;line-height:1}
+    .rnum{font-size:1.3rem;font-weight:900;line-height:1}
     .card.ctb .rnum{color:#f0c000}
     .card.mtr .rnum{color:#b39ddb}
-    .fromto{font-size:.72rem;color:#c5d4e5;text-align:right;line-height:1.25}
+    .terminus{font-size:.62rem;color:#8fa3b8}
+    .fromto{font-size:.78rem;font-weight:700;color:#f2f6fc;text-align:right;line-height:1.3}
+    .fromto span{display:block;font-size:.62rem;font-weight:500;color:#8fa3b8}
     .etas{padding:0 9px 8px;display:flex;flex-direction:column;gap:4px;flex:1;min-height:0}
     .eta{display:flex;align-items:center;gap:8px;background:#151c28;border-radius:9px;padding:7px 10px}
     .eta.first{background:#1a2d42;box-shadow:inset 0 0 0 1px rgba(80,150,220,.25)}
@@ -38,7 +42,7 @@
     .time{font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:2.8em}
     .mins{font-size:.92rem;font-weight:800;color:#5dce7a;margin-left:auto;white-space:nowrap}
     .eta.first .mins{color:#7ec8ff}
-    .dest{font-size:.65rem;color:#8eb8d8;margin-left:4px;white-space:nowrap}
+    .dest{font-size:.65rem;color:#8eb8d8;margin-left:6px;white-space:nowrap}
     .empty{flex:1;display:flex;align-items:center;justify-content:center;color:#6b7f94;font-size:.82rem;padding:8px}
     .bottom{display:flex;justify-content:space-between;align-items:center;background:#1c2533;border-radius:11px;padding:7px 12px;font-size:.7rem;color:#8fa3b8;flex-shrink:0}
     .btn{border:none;color:#c5d4e5;font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:8px;background:#2a3548}
@@ -58,39 +62,56 @@
   <main class="cards">
     <section class="card ctb">
       <div class="head">
-        <div class="route-left"><span class="badge ctb">城巴</span><span class="rnum">967</span></div>
-        <div class="fromto">濕地公園路<br>→ 大會堂</div>
+        <div class="route-left">
+          <div class="route-row"><span class="badge ctb">城巴</span><span class="rnum">967</span></div>
+          <div class="terminus">總站：金鐘（西）</div>
+        </div>
+        <div class="fromto"><span>由 濕地公園路</span>→ 大會堂</div>
       </div>
       <div class="etas" id="r967"><div class="empty">載入中...</div></div>
     </section>
     <section class="card ctb">
       <div class="head">
-        <div class="route-left"><span class="badge ctb">城巴</span><span class="rnum">780</span></div>
-        <div class="fromto">大會堂<br>→ 東區醫院</div>
+        <div class="route-left">
+          <div class="route-row"><span class="badge ctb">城巴</span><span class="rnum">780</span></div>
+          <div class="terminus">總站：柴灣（東）</div>
+        </div>
+        <div class="fromto"><span>由 大會堂</span>→ 東區醫院</div>
       </div>
       <div class="etas" id="r780"><div class="empty">載入中...</div></div>
     </section>
     <section class="card ctb">
       <div class="head">
-        <div class="route-left"><span class="badge ctb">聯營</span><span class="rnum">118</span></div>
-        <div class="fromto">山翠苑<br>→ 海底隧道 / 長沙灣</div>
+        <div class="route-left">
+          <div class="route-row"><span class="badge joint">聯營</span><span class="rnum">118</span></div>
+          <div class="terminus">總站：長沙灣（深旺道）</div>
+        </div>
+        <div class="fromto"><span>由 山翠苑</span>→ 海底隧道</div>
       </div>
       <div class="etas" id="r118"><div class="empty">載入中...</div></div>
     </section>
     <section class="card mtr">
       <div class="head">
-        <div class="route-left"><span class="badge mtr">屯馬</span><span class="rnum">西鐵</span></div>
-        <div class="fromto">紅磡<br>→ 天水圍</div>
+        <div class="route-left">
+          <div class="route-row"><span class="badge mtr">屯馬</span><span class="rnum">西鐵</span></div>
+          <div class="terminus">紅磡站開出</div>
+        </div>
+        <div class="fromto"><span>由 紅磡</span>→ 天水圍</div>
       </div>
       <div class="etas" id="rmtr"><div class="empty">載入中...</div></div>
     </section>
   </main>
   <footer class="bottom">
-    <span id="status">更新中... · v1.2</span>
+    <span id="status">更新中...</span>
     <button class="btn" onclick="fetchAll()">↻ 更新</button>
   </footer>
   <script>
     const weekdays=['日','一','二','三','四','五','六'];
+    const JOURNEY = {
+      '967': { mins: 52, label: '大會堂' },
+      '780': { mins: 28, label: '東區醫院' },
+      '118': { mins: 18, label: '海底隧道' }
+    };
     function updateClock(){
       const now=new Date();
       document.getElementById('clock').textContent=now.toTimeString().slice(0,8);
@@ -114,13 +135,16 @@
       }catch(e){}
     }
     fetchWeather();setInterval(fetchWeather,300000);
-    function fmt(etaStr,j=0){
+    function fmt(etaStr, journeyMins){
       if(!etaStr)return null;
       const eta=new Date(etaStr),diff=Math.floor((eta-new Date())/60000);
       if(diff<-1)return null;
       const time=eta.toTimeString().slice(0,5);
-      let dest=null;if(j>0)dest=new Date(eta.getTime()+j*60000).toTimeString().slice(0,5);
-      return{time,mins:diff<=0?'即將到':diff+' 分',dest};
+      let alight=null;
+      if(journeyMins>0){
+        alight=new Date(eta.getTime()+journeyMins*60000).toTimeString().slice(0,5);
+      }
+      return{time,mins:diff<=0?'即將到':diff+' 分',alight};
     }
     function render(id,items,opt={}){
       const el=document.getElementById(id);
@@ -128,7 +152,7 @@
       let html='',c=0;
       for(const it of items){
         const f=fmt(it.eta,opt.journey||0);if(!f||c>=2)continue;
-        const d=f.dest?`<span class="dest">→${opt.destLabel} ${f.dest}</span>`:'';
+        const d=f.alight?`<span class="dest">落車 ${opt.destLabel} ${f.alight}</span>`:'';
         html+=`<div class="eta ${c===0?'first':''}"><div class="seq">${c+1}</div><div class="time">${f.time}</div><div class="mins">${f.mins}</div>${d}</div>`;
         c++;
       }
@@ -136,30 +160,31 @@
     }
     function renderMtr(id,list){
       const el=document.getElementById(id);
-      if(!list||!list.length){el.innerHTML='<div class="empty">暫無班次</div>';return}
+      if(!list||!list.length){el.innerHTML='<div class="empty">暫無班次／數據暫停</div>';return}
       let html='',c=0;
       for(const t of list.slice(0,2)){
         const mins=parseInt(t.ttnt,10);
-        const time=t.time?t.time.slice(11,16):'—';
+        const time=t.time&&t.time.length>=16?t.time.slice(11,16):'—';
         const label=isNaN(mins)||mins<=0?'即將到':mins+' 分';
-        const dest=t.dest==='TUM'?'屯門':(t.dest||'');
+        const dest=t.dest==='TUM'?'往屯門':(t.dest==='WKS'?'往烏溪沙':(t.dest||''));
         html+=`<div class="eta ${c===0?'first':''}"><div class="seq">${c+1}</div><div class="time">${time}</div><div class="mins">${label}</div><span class="dest">${dest}</span></div>`;
         c++;
       }
-      el.innerHTML=html||'<div class="empty">暫無班次</div>';
+      el.innerHTML=html||'<div class="empty">暫無班次／數據暫停</div>';
     }
     async function fetchAll(){
       document.getElementById('status').textContent='更新中...';
       try{
         const r=await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/002622/967');
         const j=await r.json();
-        const list=(j.data||[]).filter(i=>i.dir==='O'||(i.dest_tc&&i.dest_tc.includes('金鐘')));
-        render('r967',list,{journey:52,destLabel:'大會堂'});
+        const list=(j.data||[]).filter(i=>i.eta&&(i.dir==='O'||(i.dest_tc&&i.dest_tc.includes('金鐘'))));
+        render('r967',list,{journey:JOURNEY['967'].mins,destLabel:JOURNEY['967'].label});
       }catch(e){document.getElementById('r967').innerHTML='<div class="empty">無法取得</div>'}
       try{
         const r=await fetch('https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/001031/780');
         const j=await r.json();
-        render('r780',(j.data||[]).filter(i=>i.dir==='I'||(i.dest_tc&&i.dest_tc.includes('柴灣'))));
+        const list=(j.data||[]).filter(i=>i.eta&&(i.dir==='I'||(i.dest_tc&&i.dest_tc.includes('柴灣'))));
+        render('r780',list,{journey:JOURNEY['780'].mins,destLabel:JOURNEY['780'].label});
       }catch(e){document.getElementById('r780').innerHTML='<div class="empty">無法取得</div>'}
       try{
         const results=await Promise.allSettled([
@@ -167,26 +192,23 @@
           fetch('https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/0DCC18C3A018C1DA').then(r=>r.json())
         ]);
         let list=[];
-        if(results[0].status==='fulfilled'){
+        if(results[0].status==='fulfilled')
           list=list.concat((results[0].value.data||[]).filter(i=>i.route==='118'&&i.eta));
-        }
-        if(results[1].status==='fulfilled'){
+        if(results[1].status==='fulfilled')
           list=list.concat((results[1].value.data||[]).filter(i=>i.route==='118'&&i.eta));
-        }
         const seen=new Set();
-        list=list.filter(i=>{
-          if(seen.has(i.eta)) return false;
-          seen.add(i.eta); return true;
-        }).sort((a,b)=>new Date(a.eta)-new Date(b.eta));
-        render('r118',list);
+        list=list.filter(i=>{if(seen.has(i.eta))return false;seen.add(i.eta);return true;})
+                 .sort((a,b)=>new Date(a.eta)-new Date(b.eta));
+        render('r118',list,{journey:JOURNEY['118'].mins,destLabel:JOURNEY['118'].label});
       }catch(e){document.getElementById('r118').innerHTML='<div class="empty">無法取得</div>'}
       try{
         const r=await fetch('https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=TML&sta=HUH');
         const j=await r.json();
-        const up=(j.data&&j.data['TML-HUH']&&j.data['TML-HUH'].UP)||[];
+        const block=(j.data&&j.data['TML-HUH'])||{};
+        let up=block.UP||[];
         renderMtr('rmtr',up);
       }catch(e){document.getElementById('rmtr').innerHTML='<div class="empty">無法取得</div>'}
-      document.getElementById('status').textContent='已更新 '+new Date().toTimeString().slice(0,8)+' · v1.2';
+      document.getElementById('status').textContent='已更新 '+new Date().toTimeString().slice(0,8);
     }
     fetchAll();setInterval(fetchAll,15000);
   </script>
